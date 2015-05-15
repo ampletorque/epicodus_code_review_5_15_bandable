@@ -1,4 +1,4 @@
-require('header_spec')
+require('spec_helper')
 
 describe(Band) do
 
@@ -17,4 +17,8 @@ describe(Band) do
     expect(band_2.save).to(eq(false))
   end
 
+  it("capitalization") do
+    band_1 = Band.create({:name => "awesome sauce"})
+    expect(band_1.name).to(eq("Awesome Sauce"))
+  end
 end

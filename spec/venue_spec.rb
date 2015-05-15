@@ -1,4 +1,4 @@
-require('header_spec')
+require('spec_helper')
 
 describe(Venue) do
 

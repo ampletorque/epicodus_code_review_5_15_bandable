@@ -1,11 +1,7 @@
-require("sinatra/activerecord")
-require("sinatra")
-require("sinatra/reloader")
-also_reload("lib/**/*.rb")
-require("./lib/band")
-require("./lib/venue")
-require("pg")
+require("bundler/setup")
+Bundler.require(:default, :production)
 
+Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 get('/') do
   erb(:index)
