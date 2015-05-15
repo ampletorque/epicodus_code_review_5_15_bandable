@@ -36,15 +36,26 @@ end
 get('/bands/:id') do
   @band = Band.find(params.fetch("id").to_i)
   @venues = Venue.all()
+  @error = false
+  erb(:band_view)
+end
+
+get('/bands/:id/:error') do
+  @band = Band.find(params.fetch("id").to_i)
+  @venues = Venue.all()
+  @error = true
   erb(:band_view)
 end
 
 patch("/bands/:id") do
   name = params.fetch("name")
   @band = Band.find(params.fetch("id").to_i)
-  @band.update({:name => name})
-  url = "/bands/" + params.fetch("id")
-  redirect(url)
+  if @band.update({:name => name})
+   url = "/bands/" + params.fetch("id")
+  else
+   url = "/bands/" + params.fetch("id") + "/error"
+  end
+   redirect(url)
 end
 
 post("/bands/:id") do
@@ -66,14 +77,25 @@ end
 get('/venues/:id') do
   @venue = Venue.find(params.fetch("id").to_i)
   @bands = Band.all()
+  @error = false
+  erb(:venue_view)
+end
+
+get('/venues/:id/:error') do
+  @venue = Venue.find(params.fetch("id").to_i)
+  @bands = Band.all()
+  @error = true
   erb(:venue_view)
 end
 
 patch("/venues/:id") do
   name = params.fetch("name")
   @venue = Venue.find(params.fetch("id").to_i)
-  @venue.update({:name => name})
-  url = "/venues/" + params.fetch("id")
+  if @venue.update({:name => name})
+   url = "/venues/" + params.fetch("id")
+  else
+   url = "/venues/" + params.fetch("id") + "/error"
+  end
   redirect(url)
 end
 

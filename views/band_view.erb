@@ -1,5 +1,9 @@
 <h1>View/Update <%=@band.name() %> </h1>
 
+<% if @error == true %>
+  <p>Error in submitting band name: please try again.</p>
+<% end %>
+
 <form action="/bands/<%= @band.id() %>" method="post">
   <input name="_method" type="hidden" value="patch">
   <label for="name">Change band name:</label>

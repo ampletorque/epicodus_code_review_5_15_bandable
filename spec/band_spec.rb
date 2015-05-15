@@ -9,4 +9,12 @@ describe(Band) do
     expect(band_1.venues).to eq([venue_1])
   end
 
+  it("validates for empty name") do
+    band_1 = Band.new({:name => ""})
+    venue_1 = Venue.create({:name => "Venue"})
+    band_2 = venue_1.bands.new({:name => ""})
+    expect(band_1.save).to(eq(false))
+    expect(band_2.save).to(eq(false))
+  end
+
 end

@@ -1,2 +1,6 @@
-change to allow multiple bands/venues instead of single (push instead of update)
-fix band showing routine
+make sure can add only same band/same venue once each
+
+use bundle require style
+write more integration specs, break up into 3 files
+write readme
+clean up formatting
