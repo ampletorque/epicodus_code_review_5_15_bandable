@@ -1,0 +1,41 @@
+<h1>View/Update <%=@band.name() %> </h1>
+
+<form action="/bands/<%= @band.id() %>" method="post">
+  <input name="_method" type="hidden" value="patch">
+  <label for="name">Change band name:</label>
+  <input id="name" name="name" text="text">
+  <button type="submit">Change</button>
+</form>
+
+<h3>Add a division for this employee:</h3>
+<% if @divisions.any?() %>
+  <form action="/employees/<%= @employee.id %>" method="post">
+    <label for="division_id">Select a Division</label>
+    <select id="division_id" name="division_id" type="text">
+    <% @divisions.each() do |division| %>
+      <option value="<%= division.id()%>"> <%= division.name() %> </option>
+    <% end %>
+  </select>
+  <button type="submit">Add division</button>
+  </form>
+<% end %>
+
+<% if [@band.venues].any? %>
+  <h3>This band's current venues:</h3>
+  <ul>
+  <% [@band.divisions].each() do |division| %>
+    <li><%= division.name() %></li>
+  <% end %>
+  </ul>
+<% else %>
+  <p>The band has no venues it's playing at yet. </p>
+<% end %>
+
+<form action="/bands/<%= @band.id() %>" method="post">
+  <input name="_method" type="hidden" value="delete">
+  <button type="submit">Delete band</button>
+</form>
+
+<p><a href="/divisions">Add venues</a></p>
+<p><a href="/bands">Add bands</a></p>
+<p><a href="/">Main Page</a></p>

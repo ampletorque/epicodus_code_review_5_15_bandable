@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  database: bandable_development
+
+test:
+  adapter: postgresql
+  database: bandable_test

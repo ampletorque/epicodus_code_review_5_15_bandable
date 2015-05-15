@@ -1,0 +1,22 @@
+<h1>Bands</h1>
+<p>Add band:</p>
+
+<form action="/bands" method="post">
+  <label for="name">Band's name:</label>
+  <input id="name" name="name" type="text">
+  <button type="submit">Add band</button>
+</form>
+
+<% if @bands.any?() %>
+  <p>Click a band to view or edit it</p>
+  <ul>
+  <% @bands.each() do |band| %>
+    <li><%= band.name %> <a href="/bands/<%= band.id() %>">Edit band</a></li>
+  <% end %>
+  </ul>
+<% else %>
+  <p> There are no bands yet.</p>
+<% end %>
+
+<p> <a href="/venues">Go to Venues</a></p>
+<p> <a href="/">Main Page</a></p>
