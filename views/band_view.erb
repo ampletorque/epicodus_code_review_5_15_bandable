@@ -7,24 +7,26 @@
   <button type="submit">Change</button>
 </form>
 
-<h3>Add a division for this employee:</h3>
-<% if @divisions.any?() %>
-  <form action="/employees/<%= @employee.id %>" method="post">
-    <label for="division_id">Select a Division</label>
-    <select id="division_id" name="division_id" type="text">
-    <% @divisions.each() do |division| %>
-      <option value="<%= division.id()%>"> <%= division.name() %> </option>
+<% if @venues.any?() %>
+<h3>Add a venue for this band:</h3>
+  <form action="/bands/<%= @band.id %>" method="post">
+    <label for="venue_id">Select a Venue</label>
+    <select id="venue_id" name="venue_id" type="text">
+    <% @venues.each() do |venue| %>
+      <option value="<%= venue.id()%>"> <%= venue.name() %> </option>
     <% end %>
   </select>
-  <button type="submit">Add division</button>
+  <button type="submit">Add venue</button>
   </form>
+<% else %>
+  There are no venues yet! <a href="/venues">Create some</a>
 <% end %>
 
-<% if [@band.venues].any? %>
+<% if @band.venues.any? %>
   <h3>This band's current venues:</h3>
   <ul>
-  <% [@band.divisions].each() do |division| %>
-    <li><%= division.name() %></li>
+  <% @band.venues.each do |venue| %>
+    <li><%= venue.name %></li>
   <% end %>
   </ul>
 <% else %>
@@ -36,6 +38,6 @@
   <button type="submit">Delete band</button>
 </form>
 
-<p><a href="/divisions">Add venues</a></p>
+<p><a href="/venues">Add venues</a></p>
 <p><a href="/bands">Add bands</a></p>
 <p><a href="/">Main Page</a></p>

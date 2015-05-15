@@ -3,6 +3,7 @@ require("pg")
 require("sinatra/activerecord")
 require("band")
 require("venue")
+require("pry")
 
 RSpec.configure do |config|
 

@@ -1,0 +1,2 @@
+change to allow multiple bands/venues instead of single (push instead of update)
+fix band showing routine

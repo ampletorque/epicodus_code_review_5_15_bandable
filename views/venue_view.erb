@@ -1,0 +1,43 @@
+<h1>View/Update <%=@venue.name() %> </h1>
+
+<form action="/venues/<%= @venue.id() %>" method="post">
+  <input name="_method" type="hidden" value="patch">
+  <label for="name">Change venue name:</label>
+  <input id="name" name="name" text="text">
+  <button type="submit">Change</button>
+</form>
+
+<% if @bands.any?() %>
+<h3>Add a band to play at this venue:</h3>
+  <form action="/venues/<%= @venue.id %>" method="post">
+    <label for="band_id">Select a Band</label>
+    <select id="band_id" name="band_id" type="text">
+    <% @bands.each() do |band| %>
+      <option value="<%= band.id()%>"> <%= band.name() %> </option>
+    <% end %>
+  </select>
+  <button type="submit">Add band</button>
+  </form>
+<% else %>
+  There are no bands yet! <a href="/venues">Create some</a>
+<% end %>
+
+<% if @venue.bands.any? %>
+  <h3>This venue's current bands:</h3>
+  <ul>
+  <% @venue.bands.each do |band| %>
+    <li><%= band.name %></li>
+  <% end %>
+  </ul>
+<% else %>
+  <p>The venue has no bands playing it yet. </p>
+<% end %>
+
+<form action="/venues/<%= @venue.id() %>" method="post">
+  <input name="_method" type="hidden" value="delete">
+  <button type="submit">Delete venue</button>
+</form>
+
+<p><a href="/venues">Add venues</a></p>
+<p><a href="/bands">Add bands</a></p>
+<p><a href="/">Main Page</a></p>

@@ -6,6 +6,7 @@ require("./lib/band")
 require("./lib/venue")
 require("pg")
 
+
 get('/') do
   erb(:index)
 end
@@ -23,69 +24,71 @@ end
 post("/bands") do
   name = params.fetch("name")
   band = Band.create({:name => name})
-  redirect('/')
+  redirect('/bands')
 end
 
 post("/venues") do
   name = params.fetch("name")
   venue = Venue.create({:name => name})
-  redirect('/')
+  redirect('/venues')
 end
 
 get('/bands/:id') do
-  @band = Band.find(params.fetch("id").to_i())
+  @band = Band.find(params.fetch("id").to_i)
   @venues = Venue.all()
   erb(:band_view)
 end
 
 patch("/bands/:id") do
   name = params.fetch("name")
-  @band = Band.find(params.fetch("id").to_i())
+  @band = Band.find(params.fetch("id").to_i)
   @band.update({:name => name})
-  redirect("/bands/{%=:id%}")
+  url = "/bands/" + params.fetch("id")
+  redirect(url)
 end
 
 post("/bands/:id") do
   @band_id = params.fetch("id").to_i()
-  @venue_ids = params.fetch("venue_ids")
-  @band = Band.find(@employee_id)
-  @venues = Venue.all
-  @band_venues = @band.venues
-  @band.update({:venue_ids => venue_ids})
-  redirect("/bands/{%=:id%}")
+  @venue_id = params.fetch("venue_id")
+  @venue = Venue.find(@venue_id)
+  @band = Band.find(@band_id)
+  @band.venues.push(@venue)
+  url = "/bands/" + params.fetch("id")
+  redirect(url)
 end
 
-delete("/employees/:id") do
-  @employee = Employee.find(params.fetch("id").to_i())
-  @employee.delete()
-  redirect('/employees')
+delete("/bands/:id") do
+  @band = Band.find(params.fetch("id").to_i)
+  @band.delete()
+  redirect('/bands')
 end
 
 get('/venues/:id') do
-  @venue = Venue.find(params.fetch("id").to_i())
+  @venue = Venue.find(params.fetch("id").to_i)
   @bands = Band.all()
   erb(:venue_view)
 end
 
 patch("/venues/:id") do
   name = params.fetch("name")
-  @venue = Venue.find(params.fetch("id").to_i())
+  @venue = Venue.find(params.fetch("id").to_i)
   @venue.update({:name => name})
-  redirect("/venues/{%=:id%}")
+  url = "/venues/" + params.fetch("id")
+  redirect(url)
 end
 
 post("/venues/:id") do
   @venue_id = params.fetch("id").to_i()
-  @band_ids = params.fetch("band_ids")
+  @band_id = params.fetch("band_id")
   @venue = Venue.find(@venue_id)
-  @bands = Band.all
-  @venue_bands = @venue.bands
-  @vnue.update({:band_ids => band_ids})
-  redirect("/venues/{%=:id%}")
+  @band = Band.find(@band_id)
+  @venue.bands.push(@band)
+  url = "/venues/" + params.fetch("id")
+  redirect(url)
 end
 
 delete("/venues/:id") do
-  @venue = Venue.find(params.fetch("id").to_i())
+  @venue = Venue.find(params.fetch("id").to_i)
   @venue.delete()
   redirect('/venues')
 end
